@@ -10,7 +10,6 @@ import './App.css';
 
 const { Content, Footer } = Layout;
 
-const Login = () => (<h1>登录</h1>);
 const Create = () => (<h1>创作</h1>);
 
 class App extends Component {
@@ -22,7 +21,6 @@ class App extends Component {
             <Header />
             <Content className='content'>
               <Route path='/' exact component={Home}></Route>
-              <Route path='/login' exact component={Login}></Route>
               <Route path='/create' exact component={Create}></Route>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
