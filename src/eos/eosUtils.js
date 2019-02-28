@@ -20,8 +20,8 @@ export const login = () => (
     ScatterJS.scatter.connect(APP_NAME).then(connected => {
       if(!connected) return false;
 
-      const scatter = ScatterJS.scatter;      
-      scatter.getIdentity({ accounts:[networkConfig] }).then(() => {
+      const scatter = ScatterJS.scatter;   
+      scatter.login({accounts:[networkConfig]}).then(() => {
         const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
         dispatch(actionCreator.changeLoginStatus(account.name));   
       }).catch(error => {
