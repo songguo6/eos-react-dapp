@@ -20,9 +20,7 @@ export const login = () => (
     ScatterJS.scatter.connect(APP_NAME).then(connected => {
       if(!connected) return false;
 
-      const scatter = ScatterJS.scatter;  
-      dispatch(actionCreator.setScatter(scatter));
-    
+      const scatter = ScatterJS.scatter;      
       scatter.getIdentity({ accounts:[networkConfig] }).then(() => {
         const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
         dispatch(actionCreator.changeLoginStatus(account.name));   
@@ -35,7 +33,8 @@ export const login = () => (
 
 export const logout = () => (
   (dispatch) => {
-
+    ScatterJS.scatter.logout();
+    dispatch(actionCreator.changeLoginStatus(false));
   }
 );
 

@@ -31,14 +31,14 @@ class Header extends Component {
   getDropDown(text){
     const menu = (
       <Menu>
-        <Menu.Item>登出</Menu.Item>
+        <Menu.Item onClick={this.props.logout}>登出</Menu.Item>
         <Menu.Item><Link to='/create'>创作</Link></Menu.Item>
       </Menu>
     );
 
     return (
       <Dropdown overlay={menu} className='nav-menu fr'>
-        <a className='ant-dropdown-link' href='#'>{text}<Icon type='down' />
+        <a className='ant-dropdown-link' href='#a'>{text}<Icon type='down' />
         </a>
       </Dropdown>
     );
@@ -50,12 +50,15 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  login(){
-    dispatch(eosUtils.login());
-  },
   checkLogin(){
     dispatch(eosUtils.checkLogin());
   },
+  login(){
+    dispatch(eosUtils.login());
+  },
+  logout(scatter){
+    dispatch(eosUtils.logout());
+  }
 });
 
 export default connect(mapState, mapDispatch)(Header);
