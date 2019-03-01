@@ -16,35 +16,34 @@ const networkConfig = {
 };
   
 export const login = () => (
-  (dispatch) => {
-    ScatterJS.scatter.connect(APP_NAME).then(connected => {
-      if(!connected) return false;
+  async (dispatch) => {
+    const connected = await ScatterJS.scatter.connect(APP_NAME);
+    if(!connected) return false;
 
-      const scatter = ScatterJS.scatter;   
-      scatter.login({accounts:[networkConfig]}).then(() => {
-        const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
-        dispatch(actionCreator.changeLoginStatus(account.name));   
-      }).catch(error => {
-          console.error(error);
-      });
-    });    
+    const scatter = ScatterJS.scatter;      
+    try {
+      await scatter.login({accounts:[networkConfig]})
+      const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
+      dispatch(actionCreator.changeLoginStatus(account.name));   
+    } catch (error) {
+      console.error(error);
+    }
   }
 );
 
 export const logout = () => (
-  (dispatch) => {
-    ScatterJS.scatter.logout();
+  async (dispatch) => {
+    await ScatterJS.scatter.logout();
     dispatch(actionCreator.changeLoginStatus(false));
   }
 );
 
 export const checkLogin = () => (
-  (dispatch) => {
-    ScatterJS.scatter.connect(APP_NAME).then(connected => {
-      if(!connected) return false;
-      ScatterJS.scatter.checkLogin().then(res => {
-        if(res) dispatch(login());
-      });
-    });  
+  async (dispatch) => {
+    const connected = await ScatterJS.scatter.connect(APP_NAME);
+    if(!connected) return false;
+
+    const res = await ScatterJS.scatter.checkLogin();
+    if(res) dispatch(login());
   }
 );
