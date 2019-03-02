@@ -1,5 +1,6 @@
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
+import Eos from 'eosjs';
 import IpfsAPI from 'ipfs-api';
 
 import { notification } from 'antd';
@@ -17,12 +18,20 @@ const notify = () => {
   });
 };
 
+// const networkConfig = {
+//   blockchain:'eos',
+//   protocol:'https',
+//   host:'nodes.get-scatter.com',
+//   port:443,
+//   chainId:'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+// };
+
 const networkConfig = {
   blockchain:'eos',
-  protocol:'https',
-  host:'nodes.get-scatter.com',
-  port:443,
-  chainId:'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+  protocol:'http',
+  host:'127.0.0.1',
+  port:8888,
+  chainId:'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',
 };
 
 ScatterJS.plugins(new ScatterEOS());   
@@ -88,4 +97,26 @@ export const saveFileToIPFS = (file) => {
 
 export const ipfsUrl = (url) => {
   return ipfsPrefix + url;
-}
+};
+
+export const eosTransact = async (action, data) => {
+  const scatter = ScatterJS.scatter;
+  const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
+  const eos = scatter.eos(networkConfig, Eos, { expireInSeconds:60 });
+
+  const result = await eos.transaction({
+    actions: [
+      {
+        account: 'fenxiangbaio',
+        name: action,
+        authorization: [
+          {
+            actor: `${account.name}`,
+            permission: `${account.authority}`
+          }
+        ],
+        data: data
+      }
+    ]
+  });
+};

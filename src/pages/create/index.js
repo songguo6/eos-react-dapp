@@ -57,15 +57,15 @@ class Create extends Component {
     const summary = this.state.editorState.toRAW(true).blocks[0].text;
     if(this.verify(summary)){
       
-      const author = this.props.account;
+      const user = this.props.account;
       const title = this.state.title;
       const category = this.state.category;
       const cover = this.state.cover;
       const content = await bcUtils.saveTextToIPFS(this.state.editorState.toHTML());
       const contentj = await bcUtils.saveTextToIPFS(this.state.editorState.toRAW())
-      const likenum = 0;;  
-      console.log(author,title,summary,category,cover,content,contentj,likenum);
-      //this.setState({toHome: true});
+
+      const data = {user, title, summary, timestamp : new Date().getTime(), category, cover, content, contentj}
+      bcUtils.eosTransact('create', data);
     }
   }
 

@@ -9,41 +9,47 @@ public:
   fenxiangbaio(name receiver, name code, datastream<const char*> ds) : contract(receiver, code, ds) {}
 
   [[eosio::action]]
-  void upsert(name user, uint64_t id, std::string title, std::string summary, uint64_t timestamp,
+  void create(name user, std::string title, std::string summary, uint64_t timestamp,
     uint64_t category, std::string cover, std::string content, std::string contentj){
 
     require_auth(user);
 
     article_index articles(_code, _code.value);
+
+    articles.emplace(user, [&](auto& row){
+      row.id = articles.available_primary_key();
+      row.author = user.to_string();
+      row.title = title;
+      row.summary = summary;
+      row.timestamp = timestamp;
+      row.category = category;
+      row.cover = cover;
+      row.content = content;
+      row.contentj = contentj;
+      row.likenum = 0;
+    });
+  }
+
+  [[eosio::action]]
+  void update(name user, uint64_t id, std::string title, std::string summary, 
+    std::string cover, std::string content, std::string contentj){
+
+    require_auth(user);   
+
+    article_index articles(_code, _code.value);
+
     auto itr = articles.find(id);
+    eosio_assert(itr != articles.end(), "Record does not exist");
+    auto data = articles.get(id);
+    eosio_assert(data.author == user.to_string(), "Can not modify other's data");
 
-    if(itr == articles.end()){
-      eosio_assert(id == -1, "Record does not exist");
-      articles.emplace(user, [&](auto& row){
-        row.id = articles.available_primary_key();
-        row.author = user.to_string();
-        row.title = title;
-        row.summary = summary;
-        row.timestamp = timestamp;
-        row.category = category;
-        row.cover = cover;
-        row.content = content;
-        row.contentj = contentj;
-        row.likenum = 0;
-      });
-    }else{
-      
-      auto data = articles.get(id);
-      eosio_assert(data.author == user.to_string(), "Can not modify other's data");
-
-      articles.modify(itr, user, [&](auto& row){
-        row.title = title;
-        row.summary = summary;
-        row.cover = cover;
-        row.content = content;
-        row.contentj = contentj;  
-      });
-    }
+    articles.modify(itr, user, [&](auto& row){
+      row.title = title;
+      row.summary = summary;
+      row.cover = cover;
+      row.content = content;
+      row.contentj = contentj;  
+    }); 
   }
 
   [[eosio::action]]
@@ -96,4 +102,4 @@ private:
   typedef eosio::multi_index<"article"_n, article > article_index;
 };
 
-EOSIO_DISPATCH(fenxiangbaio, (upsert)(remove)(like))
+EOSIO_DISPATCH(fenxiangbaio, (create)(update)(remove)(like))

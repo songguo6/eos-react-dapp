@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sat Mar  2 22:14:57 2019",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sat Mar  2 23:39:03 2019",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -49,44 +49,12 @@
             ]
         },
         {
-            "name": "like",
+            "name": "create",
             "base": "",
             "fields": [
                 {
                     "name": "user",
                     "type": "name"
-                },
-                {
-                    "name": "id",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "remove",
-            "base": "",
-            "fields": [
-                {
-                    "name": "user",
-                    "type": "name"
-                },
-                {
-                    "name": "id",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "upsert",
-            "base": "",
-            "fields": [
-                {
-                    "name": "user",
-                    "type": "name"
-                },
-                {
-                    "name": "id",
-                    "type": "uint64"
                 },
                 {
                     "name": "title",
@@ -117,10 +85,77 @@
                     "type": "string"
                 }
             ]
+        },
+        {
+            "name": "like",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "remove",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "update",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "title",
+                    "type": "string"
+                },
+                {
+                    "name": "summary",
+                    "type": "string"
+                },
+                {
+                    "name": "cover",
+                    "type": "string"
+                },
+                {
+                    "name": "content",
+                    "type": "string"
+                },
+                {
+                    "name": "contentj",
+                    "type": "string"
+                }
+            ]
         }
     ],
     "types": [],
     "actions": [
+        {
+            "name": "create",
+            "type": "create",
+            "ricardian_contract": ""
+        },
         {
             "name": "like",
             "type": "like",
@@ -132,8 +167,8 @@
             "ricardian_contract": ""
         },
         {
-            "name": "upsert",
-            "type": "upsert",
+            "name": "update",
+            "type": "update",
             "ricardian_contract": ""
         }
     ],
