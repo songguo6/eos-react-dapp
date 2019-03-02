@@ -5,4 +5,4 @@
 .logo span { color: white; font-size: 17px; }
 .nav-btn { float: right; margin: 15px 10px; }
 .nav-menu { color: white; }
-.content { overflow: hidden; width: 960px; margin: 0 auto; }
+.content { overflow: hidden; width: 960px; margin: 0 auto; background: white; }

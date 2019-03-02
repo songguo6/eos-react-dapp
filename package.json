@@ -6,6 +6,7 @@
     "antd": "^3.13.6",
     "axios": "^0.18.0",
     "babel-plugin-import": "^1.11.0",
+    "braft-editor": "^2.2.7",
     "customize-cra": "^0.2.12",
     "eosjs": "^16.0.9",
     "ipfs-api": "^26.1.2",

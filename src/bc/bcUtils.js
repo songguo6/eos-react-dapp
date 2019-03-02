@@ -1,25 +1,37 @@
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
+import IpfsAPI from 'ipfs-api';
 
+import { notification } from 'antd';
 import * as actionCreator from '../store/actionCreator';
 
-ScatterJS.plugins(new ScatterEOS());   
-
 const APP_NAME = '分享吧';
+
+const ipfs = IpfsAPI('localhost', '5002', {protocol: 'http'});
+const ipfsPrefix = "http://localhost:5002/ipfs/";
+
+const notify = () => {
+  notification.error({
+    message: '没有检测到Scatter',
+    description: '请安装Scatter或激活',
+  });
+};
 
 const networkConfig = {
   blockchain:'eos',
   protocol:'https',
   host:'nodes.get-scatter.com',
   port:443,
-  chainId:'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
+  chainId:'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
 };
+
+ScatterJS.plugins(new ScatterEOS());   
   
 export const login = () => (
   async (dispatch) => {
     const connected = await ScatterJS.scatter.connect(APP_NAME);
-    if(!connected) return false;
-
+    if(!connected) { notify(); return false;}
+  
     const scatter = ScatterJS.scatter;      
     try {
       await scatter.login({accounts:[networkConfig]})
@@ -47,3 +59,29 @@ export const checkLogin = () => (
     if(res) dispatch(login());
   }
 );
+
+export const saveTextToIPFS = (text) => {
+  const descBuf = Buffer.from(text, 'utf-8');
+  ipfs.add(descBuf).then(res => {
+    this.setState({hash: res[0].hash});
+  });
+};
+
+export const saveFileToIPFS = (file) => {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => {
+      const buffer = Buffer.from(reader.result);
+      ipfs.add(buffer).then(res => {
+        resolve(res[0].hash);
+      }).catch(error => {
+        console.log(error);
+      });
+    };
+  });
+};
+
+export const ipfsUrl = (url) => {
+  return ipfsPrefix + url;
+}

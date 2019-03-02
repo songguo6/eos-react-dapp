@@ -4,13 +4,12 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import Header from './pages/header';
 import Home from './pages/home';
+import Create from './pages/create';
 import store from './store';
 
 import './App.css';
 
 const { Content, Footer } = Layout;
-
-const Create = () => (<h1>创作</h1>);
 
 class App extends Component {
   render() {

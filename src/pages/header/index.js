@@ -3,7 +3,7 @@ import { Layout, Button, Menu, Dropdown, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect }from 'react-redux';
 
-import * as eosUtils from '../../eos/eosUtils';
+import * as bcUtils from '../../bc/bcUtils';
 
 class Header extends Component {
 
@@ -51,13 +51,13 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   checkLogin(){
-    dispatch(eosUtils.checkLogin());
+    dispatch(bcUtils.checkLogin());
   },
   login(){
-    dispatch(eosUtils.login());
+    dispatch(bcUtils.login());
   },
   logout(scatter){
-    dispatch(eosUtils.logout());
+    dispatch(bcUtils.logout());
   }
 });
 
