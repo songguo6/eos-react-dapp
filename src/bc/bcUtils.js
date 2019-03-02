@@ -61,9 +61,13 @@ export const checkLogin = () => (
 );
 
 export const saveTextToIPFS = (text) => {
-  const descBuf = Buffer.from(text, 'utf-8');
-  ipfs.add(descBuf).then(res => {
-    this.setState({hash: res[0].hash});
+  return new Promise((resolve, reject) => {
+    const descBuf = Buffer.from(text, 'utf-8');
+    ipfs.add(descBuf).then(res => {
+      resolve({hash: res[0].hash});
+    }).catch(error => {
+      console.log(error);
+    });
   });
 };
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Row, Col, Form, Input, Upload, Button, Radio, message } from 'antd';
+import { Row, Col, Form, Input, Upload, Button, Radio, message, notification } from 'antd';
 
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
@@ -28,6 +29,13 @@ class Create extends Component {
   }
 
   verify(text){
+    if(!this.props.account){
+      notification.error({
+        message: '您还没有登录',
+        description: '请安装Scatter或登录EOS账户',
+      });
+      return false;
+    }
     if(!this.state.title){
       message.error('标题不能为空');
       return false;
@@ -43,7 +51,7 @@ class Create extends Component {
     return true;
   }
 
-  handleSubmit(e){  
+  async handleSubmit(e){  
     e.preventDefault();
 
     
@@ -51,10 +59,11 @@ class Create extends Component {
     if(this.verify(summary)){
       
       const ouputHtml = this.state.editorState.toHTML();
-
+      const content = await bcUtils.saveTextToIPFS(ouputHtml);
+      console.log(content);  
       console.log(this.state);
 
-      this.setState({toHome: true});
+      //this.setState({toHome: true});
     }
   }
 
@@ -83,7 +92,6 @@ class Create extends Component {
       return false;
     }
     const hash = await bcUtils.saveFileToIPFS(file);
-    console.log('upload file to ipfs success, hash: ' + hash);
     this.setState({cover:hash});
     return false;
   }
@@ -158,4 +166,8 @@ class Create extends Component {
 
 }
 
-export default Create;
+const mapState = (state) => ({
+  account: state.account,
+});
+
+export default connect(mapState, null)(Create);
