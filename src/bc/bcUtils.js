@@ -64,7 +64,7 @@ export const saveTextToIPFS = (text) => {
   return new Promise((resolve, reject) => {
     const descBuf = Buffer.from(text, 'utf-8');
     ipfs.add(descBuf).then(res => {
-      resolve({hash: res[0].hash});
+      resolve(res[0].hash);
     }).catch(error => {
       console.log(error);
     });
