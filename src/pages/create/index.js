@@ -54,19 +54,17 @@ class Create extends Component {
   async handleSubmit(e){  
     e.preventDefault();
 
-    
     const summary = this.state.editorState.toRAW(true).blocks[0].text;
     if(this.verify(summary)){
       
-      const title = this.state.title;
       const author = this.props.account;
-      const timestamp = new Date().getTime();
+      const title = this.state.title;
       const category = this.state.category;
       const cover = this.state.cover;
-      const ouputHtml = this.state.editorState.toHTML();
-      const content = await bcUtils.saveTextToIPFS(ouputHtml);
+      const content = await bcUtils.saveTextToIPFS(this.state.editorState.toHTML());
+      const contentj = await bcUtils.saveTextToIPFS(this.state.editorState.toRAW())
       const likenum = 0;;  
-      console.log(title,author,summary,timestamp,category,cover,content,likenum);
+      console.log(author,title,summary,category,cover,content,contentj,likenum);
       //this.setState({toHome: true});
     }
   }
