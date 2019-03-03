@@ -1,8 +1,9 @@
 import React, { Component }from 'react';
+import { connect } from 'react-redux';
 import { List, Avatar, Button, Icon } from 'antd';
 import axios from 'axios';
 
-import './index.css';
+import * as actionCreator from '../../store/actionCreator';
 
 const count = 10;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat&noinfo`;
@@ -21,6 +22,10 @@ class Home extends Component {
     loading: false,
     data: [],
     list: [],
+  }
+
+  componentWillMount(){
+    this.props.changeLayoutBackground();
   }
 
   componentDidMount() {
@@ -98,4 +103,10 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapDispatch = (dispatch) => ({
+  changeLayoutBackground(){
+    dispatch(actionCreator.changeLayoutBackground('white'));
+  },
+});
+
+export default connect(null, mapDispatch)(Home);

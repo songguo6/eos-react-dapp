@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 
 const defaultState = {
+  layoutBackground: 'white',
   account: '',
 }
 
@@ -10,6 +11,9 @@ export default (state = defaultState, action) => {
   switch(action.type){
     case actionTypes.ACTION_CHANGE_LOGIN_STATUS:  
       newState.account = action.value;
+      break;
+    case actionTypes.ACTION_CHANGE_BACKGROUND:
+      newState.layoutBackground = action.value;
       break;
     default:
       break;     

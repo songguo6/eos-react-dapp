@@ -7,7 +7,7 @@ import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import * as editorUtils from './editorUtils';
 import * as bcUtils from '../../bc/bcUtils';
-
+import * as actionCreator from '../../store/actionCreator';
 
 class Create extends Component {
 
@@ -26,6 +26,10 @@ class Create extends Component {
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.handlePreview = this.handlePreview.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
+  }
+
+  componentWillMount(){
+    this.props.changeLayoutBackground();
   }
 
   verify(text){
@@ -172,4 +176,10 @@ const mapState = (state) => ({
   account: state.account,
 });
 
-export default connect(mapState, null)(Create);
+const mapDispatch = (dispatch) => ({
+  changeLayoutBackground(){
+    dispatch(actionCreator.changeLayoutBackground('#f0f2f5'));
+  },
+});
+
+export default connect(mapState, mapDispatch)(Create);
