@@ -5,7 +5,7 @@ import { Row, Col, Form, Input, Upload, Button, Radio, message, notification } f
 
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
-import * as editorUtils from './editorUtils';
+import * as utils from '../../common/utils';
 import * as bcUtils from '../../bc/bcUtils';
 import * as actionCreator from '../../store/actionCreator';
 
@@ -69,7 +69,9 @@ class Create extends Component {
       const contentj = await bcUtils.saveTextToIPFS(this.state.editorState.toRAW())
 
       const data = {user, title, summary, timestamp : new Date().getTime(), category, cover, content, contentj}
-      bcUtils.eosTransact('create', data);
+      bcUtils.eosTransact('create', data, () => {
+        this.setState({toHome: true});
+      });
     }
   }
 
@@ -87,7 +89,7 @@ class Create extends Component {
     }
     window.previewWindow = window.open();
     window.previewWindow.document.write(
-      editorUtils.buildPreviewHtml(this.state.editorState.toHTML())
+      utils.buildPreviewHtml(this.state.editorState.toHTML())
     );
     window.previewWindow.document.close();
   }

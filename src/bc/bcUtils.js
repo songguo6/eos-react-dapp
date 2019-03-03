@@ -7,6 +7,7 @@ import { notification } from 'antd';
 import * as actionCreator from '../store/actionCreator';
 
 const APP_NAME = '分享吧';
+const CONTRACT_NAME = 'fenxiangbaio';
 
 const ipfs = IpfsAPI('localhost', '5002', {protocol: 'http'});
 const ipfsPrefix = "http://localhost:5002/ipfs/";
@@ -99,15 +100,14 @@ export const ipfsUrl = (url) => {
   return ipfsPrefix + url;
 };
 
-export const eosTransact = async (action, data) => {
+export const eosTransact = (action, data, callback) => {
   const scatter = ScatterJS.scatter;
   const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
   const eos = scatter.eos(networkConfig, Eos, { expireInSeconds:60 });
-
-  await eos.transaction({
+  eos.transaction({
     actions: [
       {
-        account: 'fenxiangbaio',
+        account: CONTRACT_NAME,
         name: action,
         authorization: [
           {
@@ -119,4 +119,13 @@ export const eosTransact = async (action, data) => {
       }
     ]
   });
+  callback();
 };
+
+export const eosTableRows = (tableName, callback) => {
+  const scatter = ScatterJS.scatter;
+  const eos = scatter.eos(networkConfig, Eos, { expireInSeconds:60 });
+  eos.getTableRows(true, CONTRACT_NAME, CONTRACT_NAME, tableName, 'id', 0, -1, 10, 'i64', 1).then(res => {
+    callback(res.rows);
+  });
+}

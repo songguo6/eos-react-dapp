@@ -1,12 +1,12 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux';
 import { List, Avatar, Button, Icon } from 'antd';
-import axios from 'axios';
 
 import * as actionCreator from '../../store/actionCreator';
+import * as bcUtils from '../../bc/bcUtils'; 
+import * as utils from '../../common/utils'; 
 
-const count = 10;
-const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat&noinfo`;
+const count = 20;
 
 const IconText = ({ type, text }) => (
   <span>
@@ -29,22 +29,12 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.getData((res) => {
+    bcUtils.eosTableRows('article', (res) => {
       this.setState({
         initLoading: false,
-        data: res.results,
-        list: res.results,
+        data: res,
+        list: res,
       });
-    });
-  }
-
-  getData = (callback) => {
-    axios.get(fakeDataUrl)
-    .then(function (res) {
-      callback(res.data);
-    })
-    .catch(function (error) {
-      console.log(error);
     });
   }
 
@@ -53,8 +43,8 @@ class Home extends Component {
       loading: true,
       list: this.state.data.concat([...new Array(count)].map(() => ({ loading: true, name: {} }))),
     });
-    this.getData((res) => {
-      const data = this.state.data.concat(res.results);
+    bcUtils.eosTableRows('article', (res) => {
+      const data = this.state.data.concat(res);
       this.setState({
         data,
         list: data,
@@ -86,16 +76,22 @@ class Home extends Component {
         dataSource={list}
         renderItem={item => (
           <List.Item
-            key={item.title}
-            actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
-            extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
+            key={item.id}
+            href='/detail'
+            actions={[
+              <IconText type="star-o" text="0" />, 
+              <IconText type="like-o" text={item.likenum} />, 
+              <IconText type="message" text="0" />,
+            ]}
+            extra={<img width={272} height={180} alt="logo" src={bcUtils.ipfsUrl(item.cover)} />}
           >
             <List.Item.Meta
-              avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-              title={<a href="https://ant.design">{item.name.last}</a>}
-              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+              avatar={<Avatar src='/eos.jpg' />}
+              title={<a href="#avatar">{item.author}</a>}
+              description={utils.getTimeUntilNow(item.timestamp)}
             />
-              <div>content</div>
+            <h2>{item.title}</h2>
+            <div>{item.summary}</div>
           </List.Item>
         )}
       />

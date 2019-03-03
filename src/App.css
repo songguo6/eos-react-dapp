@@ -7,3 +7,4 @@
 .nav-menu { color: white; }
 .content { overflow: hidden; width: 960px; margin: 0 auto; background: white; }
 .loadmore-list { min-height: 350px; }
+.ant-list-item-meta-description { font-size: 12px; line-height: 12px; }

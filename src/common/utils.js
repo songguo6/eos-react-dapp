@@ -1,3 +1,24 @@
+export const getTimeUntilNow = (mss) => {
+  const offset = new Date().getTime() - mss;
+  const days = parseInt(offset / (1000 * 60 * 60 * 24));
+  if (days > 0) {
+    return days + ' 天前';
+  };
+  const hours = parseInt((offset % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  if (hours > 0) {
+    return hours + ' 小时前 ';
+  };
+  const minutes = parseInt((offset % (1000 * 60 * 60)) / (1000 * 60));
+  if (minutes > 0) {
+    return minutes + ' 分钟前 ';
+  };
+  const seconds = (offset % (1000 * 60)) / 1000;
+  if (seconds > 0) {
+    return seconds + ' 秒前';
+  }
+  return '刚刚 ';
+};
+
 export const buildPreviewHtml = (html) => {
   return `
     <!Doctype html>
