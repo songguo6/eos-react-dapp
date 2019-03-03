@@ -104,7 +104,7 @@ export const eosTransact = async (action, data) => {
   const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
   const eos = scatter.eos(networkConfig, Eos, { expireInSeconds:60 });
 
-  const result = await eos.transaction({
+  await eos.transaction({
     actions: [
       {
         account: 'fenxiangbaio',
