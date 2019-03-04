@@ -16,6 +16,12 @@ class LayoutWrapper extends Component {
           <Header />
           <Content className='content'>
             <Route path='/' exact component={Home}></Route>
+            <Route path='/category/1' exact component={Home}></Route>
+            <Route path='/category/2' exact component={Home}></Route>
+            <Route path='/category/3' exact component={Home}></Route>
+            <Route path='/category/4' exact component={Home}></Route>
+            <Route path='/category/5' exact component={Home}></Route>
+            <Route path='/category/6' exact component={Home}></Route>
             <Route path='/create' exact component={Create}></Route>
           </Content>
           <Footer style={{ textAlign: 'center', background: this.props.background }}>

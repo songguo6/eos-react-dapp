@@ -30,12 +30,12 @@ class Header extends Component {
           style={{lineHeight: '64px'}}
         >
           <Menu.Item key='/'><Link to='/'>首页</Link></Menu.Item>
-          <Menu.Item key='/a'><Link to='/a'>教程技巧</Link></Menu.Item>
-          <Menu.Item key='/b'><Link to='/b'>软件分享</Link></Menu.Item>
-          <Menu.Item key='/c'><Link to='/c'>美图精选</Link></Menu.Item>
-          <Menu.Item key='/d'><Link to='/d'>视频空间</Link></Menu.Item>
-          <Menu.Item key='/e'><Link to='/e'>网站推荐</Link></Menu.Item>
-          <Menu.Item key='/f'><Link to='/f'>其他资源</Link></Menu.Item>
+          <Menu.Item key='/category/1'><Link to='/category/1'>教程技巧</Link></Menu.Item>
+          <Menu.Item key='/category/2'><Link to='/category/2'>软件分享</Link></Menu.Item>
+          <Menu.Item key='/category/3'><Link to='/category/3'>美图精选</Link></Menu.Item>
+          <Menu.Item key='/category/4'><Link to='/category/4'>视频空间</Link></Menu.Item>
+          <Menu.Item key='/category/5'><Link to='/category/5'>网站推荐</Link></Menu.Item>
+          <Menu.Item key='/category/6'><Link to='/category/6'>其他资源</Link></Menu.Item> 
         </Menu>
       </Layout.Header>
     );

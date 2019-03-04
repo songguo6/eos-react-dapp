@@ -169,7 +169,7 @@ class Create extends Component {
                 <Radio.Button value={3}>美图精选</Radio.Button>
                 <Radio.Button value={4}>视频空间</Radio.Button>
                 <Radio.Button value={5}>网站推荐</Radio.Button>
-                <Radio.Button value={0}>其他资源</Radio.Button>
+                <Radio.Button value={6}>其他资源</Radio.Button>
               </Radio.Group>    
             </Form.Item>
             <Form.Item>

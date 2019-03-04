@@ -29,7 +29,7 @@ class Home extends Component {
     this.props.changeLayoutBackground();
   }
 
-  componentDidMount() {
+  componentDidMount(){
     offset = 0;
     bcUtils.eosTableRows('article', offset, (res) => {
       this.setState({
@@ -37,7 +37,15 @@ class Home extends Component {
         data: res,
         list: res,
       });
-    });
+    }, this.getCategoryObject());
+  }
+
+  getCategoryObject(){
+    const path = this.props.location.pathname;
+    if(path.startsWith('/category/')){
+      return {category: parseInt(path.replace('/category/',''))}
+    }
+    return {};
   }
 
   onLoadMore = () => {
@@ -55,7 +63,7 @@ class Home extends Component {
       }, () => {
         window.dispatchEvent(new Event('resize'));
       });
-    });
+    }, this.getCategoryObject());
   }
 
   render() {
