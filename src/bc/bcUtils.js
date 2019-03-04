@@ -122,10 +122,25 @@ export const eosTransact = (action, data, callback) => {
   callback();
 };
 
-export const eosTableRows = (tableName, callback) => {
+export const eosTableRows = (tableName, offset, callback) => {
   const scatter = ScatterJS.scatter;
   const eos = scatter.eos(networkConfig, Eos, { expireInSeconds:60 });
   eos.getTableRows(true, CONTRACT_NAME, CONTRACT_NAME, tableName, 'id', 0, -1, 1000, 'i64', 2).then(res => {
-    callback(res.rows);
+    callback(provide(res.rows, offset));
   });
 }
+
+/**
+ * EOS目前对数据库的查询操作支持很弱，cleos在1.5.0版本才添加了倒序查询，eosjs还不支持，这里手动处理数据
+ */
+const provide = (data, offset) => {
+  let copy = [...data];
+  copy = copy.sort(compare('id'));
+  return copy.splice(offset, 10);
+};
+
+const compare = (property) => ((a,b) => {
+  var value1 = a[property];
+  var value2 = b[property];
+  return value2 - value1;
+});

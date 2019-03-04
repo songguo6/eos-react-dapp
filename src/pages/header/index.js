@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Button, Menu, Dropdown, Icon } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect }from 'react-redux';
 
 import * as bcUtils from '../../bc/bcUtils';
@@ -19,11 +19,24 @@ class Header extends Component {
           <img src='/pics/nav-logo.png' alt=''/>
           <span>分享吧</span>
         </div>  
-        <Link to='/' className='nav-menu'>首页</Link>
         {
           account ? this.getDropDown(account) :
             <Button type='primary' className='nav-btn' onClick={login}>登录</Button>
         }
+        <Menu 
+          theme='dark' 
+          mode='horizontal' 
+          defaultSelectedKeys={[this.props.location.pathname]}
+          style={{lineHeight: '64px'}}
+        >
+          <Menu.Item key='/'><Link to='/'>首页</Link></Menu.Item>
+          <Menu.Item key='/a'><Link to='/a'>教程技巧</Link></Menu.Item>
+          <Menu.Item key='/b'><Link to='/b'>软件分享</Link></Menu.Item>
+          <Menu.Item key='/c'><Link to='/c'>美图精选</Link></Menu.Item>
+          <Menu.Item key='/d'><Link to='/d'>视频空间</Link></Menu.Item>
+          <Menu.Item key='/e'><Link to='/e'>网站推荐</Link></Menu.Item>
+          <Menu.Item key='/f'><Link to='/f'>其他资源</Link></Menu.Item>
+        </Menu>
       </Layout.Header>
     );
   }
@@ -61,4 +74,4 @@ const mapDispatch = (dispatch) => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(Header);
+export default connect(mapState, mapDispatch)(withRouter(Header));

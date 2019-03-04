@@ -6,7 +6,8 @@ import * as actionCreator from '../../store/actionCreator';
 import * as bcUtils from '../../bc/bcUtils'; 
 import * as utils from '../../common/utils'; 
 
-const count = 20;
+const count = 10;
+let offset = 0;
 
 const IconText = ({ type, text }) => (
   <span>
@@ -29,7 +30,8 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    bcUtils.eosTableRows('article', (res) => {
+    offset = 0;
+    bcUtils.eosTableRows('article', offset, (res) => {
       this.setState({
         initLoading: false,
         data: res,
@@ -39,11 +41,12 @@ class Home extends Component {
   }
 
   onLoadMore = () => {
+    offset += count;
     this.setState({
       loading: true,
       list: this.state.data.concat([...new Array(count)].map(() => ({ loading: true, name: {} }))),
     });
-    bcUtils.eosTableRows('article', (res) => {
+    bcUtils.eosTableRows('article', offset, (res) => {
       const data = this.state.data.concat(res);
       this.setState({
         data,
@@ -83,7 +86,7 @@ class Home extends Component {
               <IconText type="like-o" text={item.likenum} />, 
               <IconText type="message" text="0" />,
             ]}
-            extra={<img width={272} height={180} alt="logo" src={bcUtils.ipfsUrl(item.cover)} />}
+            extra={<img width={272} height={176} alt="logo" src={bcUtils.ipfsUrl(item.cover)} />}
           >
             <List.Item.Meta
               avatar={<Avatar src='/pics/eos.jpg' />}
