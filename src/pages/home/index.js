@@ -86,7 +86,7 @@ class Home extends Component {
             extra={<img width={272} height={180} alt="logo" src={bcUtils.ipfsUrl(item.cover)} />}
           >
             <List.Item.Meta
-              avatar={<Avatar src='/eos.jpg' />}
+              avatar={<Avatar src='/pics/eos.jpg' />}
               title={<a href="#avatar">{item.author}</a>}
               description={utils.getTimeUntilNow(item.timestamp)}
             />

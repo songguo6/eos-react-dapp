@@ -68,7 +68,16 @@ class Create extends Component {
       const content = await bcUtils.saveTextToIPFS(this.state.editorState.toHTML());
       const contentj = await bcUtils.saveTextToIPFS(this.state.editorState.toRAW())
 
-      const data = {user, title, summary, timestamp : new Date().getTime(), category, cover, content, contentj}
+      const data = {
+        user, 
+        title, 
+        summary: utils.cutString(summary, 200),
+        timestamp : new Date().getTime(),
+        category, 
+        cover, 
+        content, 
+        contentj,
+      }
       bcUtils.eosTransact('create', data, () => {
         this.setState({toHome: true});
       });

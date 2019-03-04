@@ -12,11 +12,30 @@ export const getTimeUntilNow = (mss) => {
   if (minutes > 0) {
     return minutes + ' 分钟前 ';
   };
-  const seconds = (offset % (1000 * 60)) / 1000;
-  if (seconds > 0) {
-    return seconds + ' 秒前';
-  }
   return '刚刚 ';
+};
+
+export const cutString = (str, len) => {
+  if(str.length*2 <= len) {
+      return str;
+  }
+  var strlen = 0;
+  var s = '';
+  for(var i = 0;i < str.length; i++) {
+      s = s + str.charAt(i);
+      if (str.charCodeAt(i) > 128) {
+          strlen = strlen + 2;
+          if(strlen >= len){
+              return s.substring(0,s.length-1) + '...';
+          }
+      } else {
+          strlen = strlen + 1;
+          if(strlen >= len){
+              return s.substring(0,s.length-2) + '...';
+          }
+      }
+  }
+  return s;
 };
 
 export const buildPreviewHtml = (html) => {

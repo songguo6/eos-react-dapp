@@ -97,9 +97,14 @@ private:
     uint64_t likenum;
 
     uint64_t primary_key() const {return id;}
+    uint64_t get_secondary_1() const { return category; }
+    uint64_t get_secondary_2() const { return name(author).value; }
   };
 
-  typedef eosio::multi_index<"article"_n, article > article_index;
+  typedef eosio::multi_index<"article"_n, article, 
+    indexed_by<"bycategory"_n, const_mem_fun<article, uint64_t, &article::get_secondary_1>>,
+    indexed_by<"byauthor"_n, const_mem_fun<article, uint64_t, &article::get_secondary_2>>
+  > article_index;
 };
 
 EOSIO_DISPATCH(fenxiangbaio, (create)(update)(remove)(like))

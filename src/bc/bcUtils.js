@@ -125,7 +125,7 @@ export const eosTransact = (action, data, callback) => {
 export const eosTableRows = (tableName, callback) => {
   const scatter = ScatterJS.scatter;
   const eos = scatter.eos(networkConfig, Eos, { expireInSeconds:60 });
-  eos.getTableRows(true, CONTRACT_NAME, CONTRACT_NAME, tableName, 'id', 0, -1, 10, 'i64', 1).then(res => {
+  eos.getTableRows(true, CONTRACT_NAME, CONTRACT_NAME, tableName, 'id', 0, -1, 1000, 'i64', 2).then(res => {
     callback(res.rows);
   });
 }
