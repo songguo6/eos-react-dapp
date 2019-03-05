@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { BackTop } from 'antd';
 
 import LayoutWrapper from './LayoutWrapper';
 import store from './store';
@@ -11,6 +12,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <LayoutWrapper />
+        <BackTop />
       </Provider> 
     );
   }

@@ -8,3 +8,6 @@
 .content { overflow: hidden; width: 960px; margin: 0 auto; background: white; }
 .loadmore-list { min-height: 350px; }
 .ant-list-item-meta-description { font-size: 12px; line-height: 12px; }
+
+.article-title { margin-top: 30px; margin-bottom: 30px; padding: 40px 0; }
+.article-title h3 { text-align: center; font-size: 24px; font-family: 'PingFangSC-Regular'; }

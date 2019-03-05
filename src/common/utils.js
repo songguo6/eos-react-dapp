@@ -15,6 +15,18 @@ export const getTimeUntilNow = (mss) => {
   return '刚刚 ';
 };
 
+const fix = (m) => { return m<10 ? '0'+m : m; }
+export const getFormatTime = (mss) =>{
+  var time = new Date(mss);
+
+  return time.getFullYear() 
+    + '-' + fix(time.getMonth()+1)
+    + '-' + fix(time.getDate())
+    + ' ' + fix(time.getHours())
+    + ':' + fix(time.getMinutes())
+    + ':' + fix(time.getSeconds());
+}
+
 export const cutString = (str, len) => {
   if(str.length*2 <= len) {
       return str;
@@ -36,6 +48,10 @@ export const cutString = (str, len) => {
       }
   }
   return s;
+};
+
+export const getRandomAvatar = () => {
+  return 'https://randomuser.me/api/portraits/men/' + parseInt(Math.random()*100) + '.jpg';    
 };
 
 export const buildPreviewHtml = (html) => {

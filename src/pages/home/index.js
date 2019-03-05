@@ -95,10 +95,10 @@ class Home extends Component {
                 <IconText type="like-o" text={item.likenum} />, 
                 <IconText type="message" text="0" />,
               ]}
-              extra={<img width={272} height={176} alt="logo" src={bcUtils.ipfsUrl(item.cover)} />}
+              extra={<img width={272} height={168} alt="logo" src={bcUtils.ipfsUrl(item.cover)} />}
             >
               <List.Item.Meta
-                avatar={<Avatar src='/pics/eos.jpg' />}
+                avatar={<Avatar src={utils.getRandomAvatar()} />}
                 title={item.author}
                 description={utils.getTimeUntilNow(item.timestamp)}
               />

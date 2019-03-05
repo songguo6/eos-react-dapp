@@ -81,6 +81,17 @@ export const saveTextToIPFS = (text) => {
   });
 };
 
+export const readTextFromIPFS = (hash) => {
+  return new Promise((resolve, reject) => {
+    ipfs.cat(hash).then(res => {
+      let content = new TextDecoder('utf-8').decode(res);
+      resolve(content);
+    }).catch(error => {
+      console.log(error);
+    });
+  });
+};
+
 export const saveFileToIPFS = (file) => {
   return new Promise((resolve, reject) => {
     let reader = new FileReader();
@@ -125,10 +136,18 @@ export const eosTransact = (action, data, callback) => {
 export const eosTableRows = (tableName, offset, callback, param = {}) => {
   const scatter = ScatterJS.scatter;
   const eos = scatter.eos(networkConfig, Eos, { expireInSeconds:60 });
-  eos.getTableRows(true, CONTRACT_NAME, CONTRACT_NAME, tableName, 'id', 0, -1, 1000, 'i64', 2).then(res => {
+  eos.getTableRows(true, CONTRACT_NAME, CONTRACT_NAME, tableName, 'id', 0, -1, 1000, 'i64', 1).then(res => {
     callback(provide(res.rows, offset, param));
   });
 }
+
+export const eosTableRowById = (tableName, id, callback) => {
+  const scatter = ScatterJS.scatter;
+  const eos = scatter.eos(networkConfig, Eos, { expireInSeconds:60 });
+  eos.getTableRows(true, CONTRACT_NAME, CONTRACT_NAME, tableName, 'id', id, -1, 1, 'i64', 1).then(res => {
+    callback(res.rows[0]);
+  });
+};
 
 /**
  * EOS目前对数据库的查询操作支持很弱，cleos在1.5.0版本才添加了倒序查询，eosjs还不支持，这里手动处理数据
