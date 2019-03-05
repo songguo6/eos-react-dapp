@@ -19,10 +19,10 @@ $ npm start
 
 $ cleos create account eosio fenxiangbaio <public_key>
 
-$ cd eos-react-dapp/src/bc/contracts/fenxiangbaio
+$ cd eos-react-dapp/src/bc/contracts/fenxiangbaio  
 $ eosio-cpp -o fenxiangbaio.wasm fenxiangbaio.cpp --abigen
 
-$ cd ..
+$ cd ..  
 $ cleos set contract fenxiangbaio fenxiangbaio -p fenxiangbaio@active
 
 ### 启动IPFS本地节点
