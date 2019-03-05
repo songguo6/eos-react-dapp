@@ -32,12 +32,12 @@ class Detail extends Component {
       <Fragment>
         <div className='article-title'>
           <h3>{title}</h3>
+          <List.Item.Meta
+            avatar={<Avatar src={utils.getRandomAvatar()} />}
+            title={author}
+            description={utils.getFormatTime(parseInt(timestamp))}
+          />
         </div>
-        <List.Item.Meta
-          avatar={<Avatar src={utils.getRandomAvatar()} />}
-          title={author}
-          description={utils.getFormatTime(parseInt(timestamp))}
-        />
         <div dangerouslySetInnerHTML={{__html:content}}></div>
       </Fragment>
     );
