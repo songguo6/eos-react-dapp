@@ -32,7 +32,7 @@ class Create extends Component {
     this.props.changeLayoutBackground();
   }
 
-  verify(text){
+  verify(){
     if(!this.props.account){
       notification.error({
         message: '您还没有登录',
@@ -42,10 +42,6 @@ class Create extends Component {
     }
     if(!this.state.title){
       message.error('标题不能为空');
-      return false;
-    }
-    if(!text){
-      message.error('内容不能为空');
       return false;
     }
     if(!this.state.cover){
@@ -58,9 +54,8 @@ class Create extends Component {
   async handleSubmit(e){  
     e.preventDefault();
 
-    const summary = this.state.editorState.toRAW(true).blocks[0].text;
-    if(this.verify(summary)){
-      
+    if(this.verify()){
+      const summary = this.state.editorState.toRAW(true).blocks[0].text;
       const user = this.props.account;
       const title = this.state.title;
       const category = this.state.category;
