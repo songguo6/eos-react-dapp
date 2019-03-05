@@ -7,6 +7,7 @@
 - [IPFS](https://github.com/ipfs/js-ipfs)
 - [EOS](https://github.com/EOSIO/eos/releases/tag/v1.5.0)
 - [EOSIO.cdt](https://github.com/EOSIO/eosio.cdt/releases/tag/v1.5.0)
+- [Scatter](https://get-scatter.com/)  
 
 ### 安装启动React项目
 
