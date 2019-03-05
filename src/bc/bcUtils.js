@@ -111,11 +111,11 @@ export const ipfsUrl = (url) => {
   return ipfsPrefix + url;
 };
 
-export const eosTransact = (action, data, callback) => {
+export const eosTransact = async (action, data, callback) => {
   const scatter = ScatterJS.scatter;
   const account = scatter.identity.accounts.find(x => x.blockchain === 'eos');
   const eos = scatter.eos(networkConfig, Eos, { expireInSeconds:60 });
-  eos.transaction({
+  await eos.transaction({
     actions: [
       {
         account: CONTRACT_NAME,
