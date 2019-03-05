@@ -1,6 +1,7 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux';
 import { List, Avatar, Button, Icon } from 'antd';
+import { Link } from 'react-router-dom';  
 
 import * as actionCreator from '../../store/actionCreator';
 import * as bcUtils from '../../bc/bcUtils'; 
@@ -86,24 +87,25 @@ class Home extends Component {
         loadMore={loadMore}
         dataSource={list}
         renderItem={item => (
-          <List.Item
-            key={item.id}
-            href='/detail'
-            actions={[
-              <IconText type="star-o" text="0" />, 
-              <IconText type="like-o" text={item.likenum} />, 
-              <IconText type="message" text="0" />,
-            ]}
-            extra={<img width={272} height={176} alt="logo" src={bcUtils.ipfsUrl(item.cover)} />}
-          >
-            <List.Item.Meta
-              avatar={<Avatar src='/pics/eos.jpg' />}
-              title={<a href="#avatar">{item.author}</a>}
-              description={utils.getTimeUntilNow(item.timestamp)}
-            />
-            <h2>{item.title}</h2>
-            <div>{item.summary}</div>
-          </List.Item>
+          <Link to={'/detail/'+item.id}>
+            <List.Item
+              key={item.id}
+              actions={[
+                <IconText type="star-o" text="0" />, 
+                <IconText type="like-o" text={item.likenum} />, 
+                <IconText type="message" text="0" />,
+              ]}
+              extra={<img width={272} height={176} alt="logo" src={bcUtils.ipfsUrl(item.cover)} />}
+            >
+              <List.Item.Meta
+                avatar={<Avatar src='/pics/eos.jpg' />}
+                title={item.author}
+                description={utils.getTimeUntilNow(item.timestamp)}
+              />
+              <h2>{item.title}</h2>
+              <div>{item.summary}</div>
+            </List.Item>
+          </Link>
         )}
       />
     );

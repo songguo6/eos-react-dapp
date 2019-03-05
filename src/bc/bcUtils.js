@@ -135,8 +135,6 @@ export const eosTableRows = (tableName, offset, callback, param = {}) => {
  */
 const provide = (data, offset, param) => {
   
-  console.log(param);
-
   let newData = [];
   let paramKey = null;
   Object.keys(param).forEach(key => {

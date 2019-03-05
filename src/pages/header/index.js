@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Layout, Button, Menu, Dropdown, Icon } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { connect }from 'react-redux';
+import creatHistory from 'history/createBrowserHistory' 
 
 import * as bcUtils from '../../bc/bcUtils';
+
+const history = creatHistory();
 
 class Header extends Component {
 
@@ -12,11 +15,11 @@ class Header extends Component {
   }
 
   render(){
-    const {account, login} = this.props;
+    const {account, login, goBack } = this.props;
     return (
       <Layout.Header>
         <div className='logo'>
-          <img src='/pics/nav-logo.png' alt=''/>
+          <img src='/pics/nav-logo.png' alt='点击返回上一页'onClick={goBack}/>
           <span>分享吧</span>
         </div>  
         {
@@ -69,9 +72,12 @@ const mapDispatch = (dispatch) => ({
   login(){
     dispatch(bcUtils.login());
   },
-  logout(scatter){
+  logout(){
     dispatch(bcUtils.logout());
-  }
+  },
+  goBack(){
+    history.goBack();
+  },
 });
 
 export default connect(mapState, mapDispatch)(withRouter(Header));

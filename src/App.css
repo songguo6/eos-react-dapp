@@ -1,7 +1,7 @@
 .fl { float: left; }
 .fr { float: right; }
 .logo { float: left; width: 200px; margin-right: 20px; }
-.logo img { height: 44px; margin-right: 10px; }
+.logo img { height: 44px; margin-right: 10px; cursor: pointer; }
 .logo span { color: white; font-size: 17px; }
 .nav-btn { float: right; margin: 15px 10px; }
 .nav-menu { color: white; }
