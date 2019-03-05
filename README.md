@@ -1,4 +1,4 @@
-## Usage
+## 基于React/EOS/IPFS的内容分享DAPP
 
 ### 运行环境
 
