@@ -5,7 +5,7 @@
 - Linux / Mac OS
 - [nodejs](https://nodejs.org)
 - [IPFS](https://github.com/ipfs/js-ipfs)
-- [EOS](https://github.com/EOSIO/eos/releases/tag/v1.5.0)
+- [EOS](https://github.com/EOSIO/eos/releases/tag/v1.6.2)
 - [EOSIO.cdt](https://github.com/EOSIO/eosio.cdt/releases/tag/v1.5.0)
 - [Scatter](https://get-scatter.com/)  
 
