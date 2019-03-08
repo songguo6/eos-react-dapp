@@ -51,7 +51,6 @@ class Header extends Component {
         <Menu.Item><Link to='/create'>创作</Link></Menu.Item>
       </Menu>
     );
-
     return (
       <Dropdown overlay={menu} className='nav-menu fr'>
         <a className='ant-dropdown-link' href='#a'>{text}<Icon type='down' />
