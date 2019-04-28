@@ -40,8 +40,7 @@ public:
 
     auto itr = articles.find(id);
     eosio_assert(itr != articles.end(), "Record does not exist");
-    auto data = articles.get(id);
-    eosio_assert(data.author == user.to_string(), "Can not modify other's data");
+    eosio_assert(itr->author == user.to_string(), "Can not modify other's data");
 
     articles.modify(itr, user, [&](auto& row){
       row.title = title;
@@ -58,11 +57,9 @@ public:
 
     article_index articles(_self, _code.value);
 
-    auto data = articles.get(id);
-    eosio_assert(data.author == user.to_string() , "Can not remove other's data");
-
     auto itr = articles.find(id);
     eosio_assert(itr != articles.end(), "Record does not exist");
+    eosio_assert(itr->author == user.to_string() , "Can not remove other's data");
     articles.erase(itr);
   }
 
@@ -74,8 +71,7 @@ public:
 
     auto itr = articles.find(id);
     eosio_assert(itr != articles.end(), "Record does not exist");
-    auto data = articles.get(id);
-    eosio_assert(data.author == user.to_string(), "Can not modify other's data");
+    eosio_assert(itr->author == user.to_string(), "Can not modify other's data");
 
     articles.modify(itr, user, [&](auto& row){
       row.likenum++;
